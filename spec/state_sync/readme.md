@@ -27,11 +27,11 @@ containing snapshot metadata (limited to 4 MB) for each of the 10 most recent sn
 
 ```go
 type snapshotsResponseMessage struct {
-	Height   uint64
-	Format   uint32
-	Chunks   uint32
-	Hash     []byte
-	Metadata []byte
+  Height   uint64
+  Format   uint32
+  Chunks   uint32
+  Hash     []byte
+  Metadata []byte
 }
 ```
 
@@ -41,9 +41,9 @@ is accepted, the state syncer will request snapshot chunks from appropriate peer
 
 ```go
 type chunkRequestMessage struct {
-	Height uint64
-	Format uint32
-	Index  uint32
+  Height uint64
+  Format uint32
+  Index  uint32
 }
 ```
 
@@ -52,11 +52,11 @@ and respond with it (limited to 16 MB):
 
 ```go
 type chunkResponseMessage struct {
-	Height  uint64
-	Format  uint32
-	Index   uint32
-	Chunk   []byte
-	Missing bool
+  Height  uint64
+  Format  uint32
+  Index   uint32
+  Chunk   []byte
+  Missing bool
 }
 ```
 
@@ -69,5 +69,5 @@ possibly from a different peer.
 
 The ABCI application is able to request peer bans and chunk refetching as part of the ABCI protocol.
 
-If no state sync is in progress (i.e. during normal operation), any unsolicited response messages 
+If no state sync is in progress (i.e. during normal operation), any unsolicited response messages
 are discarded.

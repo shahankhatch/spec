@@ -17,7 +17,7 @@ explained in a forthcoming document.
 For efficiency reasons, validators in Tendermint consensus protocol do not agree directly on the
 block as the block size is big, i.e., they don't embed the block inside `Proposal` and
 `VoteMessage`. Instead, they reach agreement on the `BlockID` (see `BlockID` definition in
-[Blockchain](https://github.com/tendermint/spec/blob/master/spec/core/data_structures.md#blockid) section) 
+[Blockchain](https://github.com/tendermint/spec/blob/master/spec/core/data_structures.md#blockid) section)
 that uniquely identifies each block. The block itself is
 disseminated to validator processes using peer-to-peer gossiping protocol. It starts by having a
 proposer first splitting a block into a number of block parts, that are then gossiped between
@@ -33,9 +33,20 @@ also messages that inform peers what votes the process has seen (`HasVoteMessage
 `VoteSetMaj23Message` and `VoteSetBitsMessage`). These messages are then used in the gossiping
 protocol to determine what messages a process should send to its peers.
 
+## Channel
+
+```go
+StateChannel       = byte(0x20)
+DataChannel        = byte(0x21)
+VoteChannel        = byte(0x22)
+VoteSetBitsChannel = byte(0x23)
+```
+
+## Messages
+
 We now describe the content of each message exchanged during Tendermint consensus protocol.
 
-## ProposalMessage
+## Proposal Message
 
 ProposalMessage is sent when a new block is proposed. It is a suggestion of what the
 next block in the blockchain should be.
@@ -50,7 +61,7 @@ type ProposalMessage struct {
 
 Proposal contains height and round for which this proposal is made, BlockID as a unique identifier
 of proposed block, timestamp, and POLRound (a so-called Proof-of-Lock (POL) round) that is needed for
-termination of the consensus. If POLRound >= 0, then BlockID corresponds to the block that 
+termination of the consensus. If POLRound >= 0, then BlockID corresponds to the block that
 is locked in POLRound. The message is signed by the validator private key.
 
 ```go
@@ -68,7 +79,7 @@ type Proposal struct {
 
 VoteMessage is sent to vote for some block (or to inform others that a process does not vote in the
 current round). Vote is defined in the
-[Blockchain](https://github.com/tendermint/spec/blob/master/spec/core/data_structures.md#blockidd)
+[Blockchain](https://github.com/tendermint/spec/blob/master/spec/core/data_structures.md#blockid)
 section and contains validator's
 information (validator address and index), height and round for which the vote is sent, vote type,
 blockID if process vote for some block (`nil` otherwise) and a timestamp when the vote is sent. The

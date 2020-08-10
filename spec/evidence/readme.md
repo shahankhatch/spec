@@ -12,7 +12,7 @@ EvidenceChannel = byte(0x38)
 
 ## Messages
 
-Evidence has one message type `List`. 
+Evidence has one message type `List`.
 
 `List` is an array of various types of evidence.
 

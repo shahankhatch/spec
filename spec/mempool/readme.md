@@ -1,8 +1,10 @@
 # Mempool
 
-<!-- Add minor description of a mempool -->
+A mempool or transaction pool is a in memory store in which transactions are stored before being included into a block.
 
 ## Channel
+
+Tendermint implements a multiplexed connection, you can read more about this [here](../p2p/connection.md#mconnection), meaning that communication between nodes for specific protocols happens on separate channels. The channel the communication takes place for the block sync protocol is `48` or `0x30`.
 
 ```go
 MempoolChannel = byte(0x30) 48
